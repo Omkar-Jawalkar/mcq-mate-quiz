@@ -1,9 +1,24 @@
-import React from 'react'
+const ActionButtons = ({ setCurrentQuestion }) => {
+    return (
+        <div className="flex justify-evenly">
+            <button
+                onClick={() => {
+                    setCurrentQuestion((prev) => prev - 1);
+                }}
+                className="border px-2 py-1"
+            >
+                Back
+            </button>
+            <button
+                onClick={() => {
+                    setCurrentQuestion((prev) => prev + 1);
+                }}
+                className="border px-2 py-1"
+            >
+                Next
+            </button>
+        </div>
+    );
+};
 
-const ActionButtons = () => {
-  return (
-    <div>ActionButtons</div>
-  )
-}
-
-export default ActionButtons
+export default ActionButtons;
