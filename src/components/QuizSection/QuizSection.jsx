@@ -11,6 +11,7 @@ const QuizSection = ({ mcqs }) => {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [totalCorrectQuestions, setTotalCorrectQuestions] = useState(null);
     const [quizSubmitted, setQuizSubmitted] = useState(false);
+    const [answerObj, setAnswerObj] = useState({});
 
     const handleSubmit = () => {
         // {
@@ -26,9 +27,13 @@ const QuizSection = ({ mcqs }) => {
         mcqs.map((mcq) => {
             let selectedAnswer = answerObj[mcq?.id];
             let isCorrect = selectedAnswer === mcq?.answer;
-            isCorrect && totalCorrectQuestions + 1;
+            if (isCorrect === true) {
+                totalCorrectQuestions = totalCorrectQuestions + 1;
+            }
             answerObj[mcq?.id] = isCorrect;
         });
+
+        setAnswerObj(answerObj);
         setTotalCorrectQuestions(totalCorrectQuestions);
         setQuizSubmitted(true);
 
@@ -41,6 +46,8 @@ const QuizSection = ({ mcqs }) => {
                 attemptedQuestion={attemptedQuestionWithAnswers}
                 mcqs={mcqs}
                 setCurrentQuestion={setCurrentQuestion}
+                quizSubmitted={quizSubmitted}
+                answerObj={answerObj}
             />
 
             <div className="max-h-64">
