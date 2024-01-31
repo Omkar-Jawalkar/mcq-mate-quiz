@@ -12,9 +12,9 @@ const ActionButtons = ({
                         return prev < 1 ? prev : prev - 1;
                     });
                 }}
-                className="border px-2 py-1"
+                className="border rounded-md px-2 py-1"
             >
-                Back
+                Previous
             </button>
 
             {currentQuestion >= mcqLength - 1 ? (
@@ -22,7 +22,7 @@ const ActionButtons = ({
                     onClick={() => {
                         handleSubmit();
                     }}
-                    className="border px-2 py-1"
+                    className="border rounded-md bg-green-600 text-white px-2 py-1"
                 >
                     Submit
                 </button>
@@ -33,7 +33,7 @@ const ActionButtons = ({
                             prev >= mcqLength - 1 ? prev : prev + 1
                         );
                     }}
-                    className="border px-2 py-1"
+                    className="border rounded-md px-2 py-1"
                 >
                     Next
                 </button>
