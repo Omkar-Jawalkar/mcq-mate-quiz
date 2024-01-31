@@ -16,6 +16,7 @@ const ActionButtons = ({
             >
                 Previous
             </button>
+            {/* ALL GOOD */}
 
             {currentQuestion >= mcqLength - 1 ? (
                 <button
