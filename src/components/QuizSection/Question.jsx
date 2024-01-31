@@ -13,10 +13,18 @@
 //                     "https://mcqmate.com/discussion/77705/rewards-offered-to-labours-involved-in-production-are-categorized-as",
 //             },
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Question = ({ currentMcq, setAttemptedQuestionWithAnswers }) => {
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
+const Question = ({
+    currentMcq,
+    setAttemptedQuestionWithAnswers,
+    attemptedQuestionWithAnswers,
+    currentQuestion,
+}) => {
+    const [selectedAnswer, setSelectedAnswer] = useState(() => {
+        let answered = attemptedQuestionWithAnswers[currentMcq?.id];
+        return answered ? answered : null;
+    });
     let answers = {
         a: currentMcq?.a,
         b: currentMcq?.b,
@@ -25,14 +33,23 @@ const Question = ({ currentMcq, setAttemptedQuestionWithAnswers }) => {
         e: currentMcq?.e,
     };
 
+    useEffect(() => {
+        let answered = attemptedQuestionWithAnswers[currentMcq?.id];
+        setSelectedAnswer(answered ? answered : null);
+    }, [currentQuestion]);
+
     const handleSelectAnswer = (answer) => {
-        setAttemptedQuestionWithAnswers();
+        setAttemptedQuestionWithAnswers((prev) => {
+            return { ...prev, [currentMcq?.id]: answer };
+        });
         setSelectedAnswer(answer);
     };
 
     return (
         <div className="border w-full justify-center items-center p-6">
-            <h2> Q. {currentMcq?.question} </h2>
+            <h2 className="font-bold">
+                Q.{currentQuestion + 1} {currentMcq?.question}
+            </h2>
 
             <div className=" flex flex-col py-4 space-y-3 ">
                 {Object.keys(answers)?.map((key) => {

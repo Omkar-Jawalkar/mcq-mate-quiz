@@ -14,16 +14,20 @@ const QuizSection = ({ mcqs }) => {
             <QuestionList
                 attemptedQuestion={attemptedQuestionWithAnswers}
                 mcqs={mcqs}
+                setCurrentQuestion={setCurrentQuestion}
             />
             <Question
                 setAttemptedQuestionWithAnswers={
                     setAttemptedQuestionWithAnswers
                 }
+                attemptedQuestionWithAnswers={attemptedQuestionWithAnswers}
                 currentMcq={mcqs[currentQuestion]}
+                currentQuestion={currentQuestion}
             />
             <ActionButtons
                 currentQuestion={currentQuestion}
                 setCurrentQuestion={setCurrentQuestion}
+                mcqLength={mcqs.length}
             />
         </div>
     );

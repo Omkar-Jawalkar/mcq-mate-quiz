@@ -1,9 +1,11 @@
-const ActionButtons = ({ setCurrentQuestion }) => {
+const ActionButtons = ({ setCurrentQuestion, mcqLength }) => {
     return (
         <div className="flex justify-evenly">
             <button
                 onClick={() => {
-                    setCurrentQuestion((prev) => prev - 1);
+                    setCurrentQuestion((prev) => {
+                        return prev < 1 ? prev : prev - 1;
+                    });
                 }}
                 className="border px-2 py-1"
             >
@@ -11,7 +13,9 @@ const ActionButtons = ({ setCurrentQuestion }) => {
             </button>
             <button
                 onClick={() => {
-                    setCurrentQuestion((prev) => prev + 1);
+                    setCurrentQuestion((prev) =>
+                        prev > mcqLength ? prev : prev + 1
+                    );
                 }}
                 className="border px-2 py-1"
             >
