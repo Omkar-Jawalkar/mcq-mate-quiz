@@ -9,7 +9,7 @@ const QuestionList = ({
 }) => {
     const beforeSubmittingQuizColors = (mcqId) => {
         return Object.keys(attemptedQuestion).includes(String(mcqId))
-            ? "bg-blue-500"
+            ? "bg-blue-400"
             : "bg-gray-300";
     };
 
@@ -18,7 +18,7 @@ const QuestionList = ({
     };
 
     return (
-        <div className="flex py-4 px-4 space-x-2">
+        <div className="flex py-4 max-w-screen-lg whitespace-nowrap overflow-auto px-4 space-x-2">
             {mcqs?.map((mcq, index) => (
                 <button
                     onClick={() => {

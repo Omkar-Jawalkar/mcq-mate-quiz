@@ -71,6 +71,7 @@ const QuizSection = ({ mcqs }) => {
             </div>
 
             <ActionButtons
+                quizSubmitted={quizSubmitted}
                 currentQuestion={currentQuestion}
                 setCurrentQuestion={setCurrentQuestion}
                 mcqLength={mcqs.length}
