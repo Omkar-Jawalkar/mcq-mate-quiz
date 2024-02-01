@@ -10,7 +10,7 @@ const QuestionList = ({
     const beforeSubmittingQuizColors = (mcqId) => {
         return Object.keys(attemptedQuestion).includes(String(mcqId))
             ? "bg-blue-400"
-            : "bg-gray-400";
+            : "bg-gray-300";
     };
 
     const afterSubmittingQuizColors = (mcqId) => {
