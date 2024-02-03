@@ -4,6 +4,7 @@ const ActionButtons = ({
     currentQuestion,
     handleSubmit,
     quizSubmitted,
+    attemptedQuestionLength,
 }) => {
     return (
         <div className="flex py-6 justify-evenly">
@@ -25,8 +26,10 @@ const ActionButtons = ({
                     onClick={() => {
                         handleSubmit();
                     }}
-                    className="border rounded-md bg-green-600 text-white px-2 py-1"
-                    disabled={quizSubmitted}
+                    className="border disabled:opacity-25 disabled:cursor-pointer rounded-md bg-green-600 text-white px-2 py-1"
+                    disabled={
+                        attemptedQuestionLength !== mcqLength || quizSubmitted
+                    }
                 >
                     Submit
                 </button>
