@@ -8,6 +8,7 @@ const QuestionList = ({
     setCurrentQuestion,
     quizSubmitted,
     answerObj,
+    setShowResult,
 }) => {
     const beforeSubmittingQuizColors = (mcqId) => {
         return Object.keys(attemptedQuestion).includes(String(mcqId))
@@ -22,30 +23,46 @@ const QuestionList = ({
     useEffect(() => {}, []);
 
     return (
-        <div className="flex py-4 max-w-screen-lg whitespace-nowrap overflow-auto px-4 space-x-2">
-            {mcqs?.map((mcq, index) => {
-                let style = quizSubmitted
-                    ? answerObj[mcq?.id] === true
-                        ? "bg-green-600"
-                        : "bg-red-500"
-                    : currentQuestion === index
-                    ? "bg-blue-200"
-                    : Object.keys(attemptedQuestion).includes(String(mcq?.id))
-                    ? "bg-blue-600"
-                    : "bg-gray-300";
+        <div className="w-full flex flex-col space-y-4">
+            <div className="flex py-4 max-w-screen-lg whitespace-nowrap overflow-auto px-4 space-x-2">
+                {mcqs?.map((mcq, index) => {
+                    let style = quizSubmitted
+                        ? answerObj[mcq?.id] === true
+                            ? "bg-green-600"
+                            : "bg-red-500"
+                        : currentQuestion === index
+                        ? "bg-blue-200"
+                        : Object.keys(attemptedQuestion).includes(
+                              String(mcq?.id)
+                          )
+                        ? "bg-blue-600"
+                        : "bg-gray-300";
 
-                return (
-                    <button
-                        onClick={() => {
-                            setCurrentQuestion(index);
-                        }}
-                        key={index}
-                        className={` ${style} border px-3 py-1 border-black bg-gray-300 `}
-                    >
-                        {index + 1}
-                    </button>
-                );
-            })}
+                    return (
+                        <button
+                            onClick={() => {
+                                setCurrentQuestion(index);
+                                setShowResult(false);
+                            }}
+                            key={index}
+                            className={` ${style} border px-3 py-1 border-black bg-gray-300 `}
+                        >
+                            {index + 1}
+                        </button>
+                    );
+                })}
+            </div>
+
+            {quizSubmitted && (
+                <button
+                    onClick={() => {
+                        setShowResult("true");
+                    }}
+                    className="underline mb-4 text-green-600"
+                >
+                    Results
+                </button>
+            )}
         </div>
     );
 };

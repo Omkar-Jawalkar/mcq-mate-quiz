@@ -27,9 +27,9 @@ const ActionButtons = ({
                         handleSubmit();
                     }}
                     className="border disabled:opacity-25 disabled:cursor-pointer rounded-md bg-green-600 text-white px-2 py-1"
-                    disabled={
-                        attemptedQuestionLength !== mcqLength || quizSubmitted
-                    }
+                    // disabled={
+                    //     attemptedQuestionLength !== mcqLength || quizSubmitted
+                    // }
                 >
                     Submit
                 </button>

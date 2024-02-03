@@ -12,6 +12,7 @@ const QuizSection = ({ mcqs }) => {
     const [totalCorrectQuestions, setTotalCorrectQuestions] = useState(null);
     const [quizSubmitted, setQuizSubmitted] = useState(false);
     const [answerObj, setAnswerObj] = useState({});
+    const [showResult, setShowResult] = useState(false);
 
     const handleSubmit = () => {
         // {
@@ -33,9 +34,9 @@ const QuizSection = ({ mcqs }) => {
 
         // VALIDATIONS
 
-        if (Object.keys(attemptedQuestionWithAnswers).length !== mcqs.length) {
-            return alert("Please attempt all question");
-        }
+        // if (Object.keys(attemptedQuestionWithAnswers).length !== mcqs.length) {
+        //     return alert("Please attempt all question");
+        // }
 
         let totalCorrectQuestions = 0;
         mcqs.map((mcq) => {
@@ -47,10 +48,15 @@ const QuizSection = ({ mcqs }) => {
             answerObj[mcq?.id] = isCorrect;
         });
 
-        console.log(answerObj);
+        setShowResult(true);
         setAnswerObj(answerObj);
         setTotalCorrectQuestions(totalCorrectQuestions);
         setQuizSubmitted(true);
+
+        console.log(
+            "attemptedQuestionWithAnswers",
+            attemptedQuestionWithAnswers
+        );
 
         // todo : Make API call and add the set_id property
     };
@@ -64,16 +70,18 @@ const QuizSection = ({ mcqs }) => {
                 quizSubmitted={quizSubmitted}
                 answerObj={answerObj}
                 currentQuestion={currentQuestion}
+                setShowResult={setShowResult}
             />
 
-            <div className="max-h-64">
-                {quizSubmitted ? (
+            <div className="">
+                {quizSubmitted && showResult ? (
                     <Result
                         mcqLength={mcqs.length}
                         totalCorrectQuestions={totalCorrectQuestions}
                     />
                 ) : (
                     <Question
+                        quizSubmitted={quizSubmitted}
                         setAttemptedQuestionWithAnswers={
                             setAttemptedQuestionWithAnswers
                         }
