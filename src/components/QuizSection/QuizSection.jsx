@@ -22,7 +22,21 @@ const QuizSection = ({ mcqs }) => {
         //         "23442": false
         //     }
         // }
+
+        // {
+        //     1 : a,
+        //     2 : b,
+
+        // }
+
         let answerObj = { ...attemptedQuestionWithAnswers };
+
+        // VALIDATIONS
+
+        if (Object.keys(attemptedQuestionWithAnswers).length !== mcqs.length) {
+            return alert("Please attempt all question");
+        }
+
         let totalCorrectQuestions = 0;
         mcqs.map((mcq) => {
             let selectedAnswer = answerObj[mcq?.id];
@@ -33,6 +47,7 @@ const QuizSection = ({ mcqs }) => {
             answerObj[mcq?.id] = isCorrect;
         });
 
+        console.log(answerObj);
         setAnswerObj(answerObj);
         setTotalCorrectQuestions(totalCorrectQuestions);
         setQuizSubmitted(true);
@@ -48,6 +63,7 @@ const QuizSection = ({ mcqs }) => {
                 setCurrentQuestion={setCurrentQuestion}
                 quizSubmitted={quizSubmitted}
                 answerObj={answerObj}
+                currentQuestion={currentQuestion}
             />
 
             <div className="max-h-64">
@@ -74,6 +90,9 @@ const QuizSection = ({ mcqs }) => {
                 quizSubmitted={quizSubmitted}
                 currentQuestion={currentQuestion}
                 setCurrentQuestion={setCurrentQuestion}
+                attemptedQuestionLength={
+                    Object.keys(attemptedQuestionWithAnswers).length
+                }
                 mcqLength={mcqs.length}
                 handleSubmit={handleSubmit}
             />
