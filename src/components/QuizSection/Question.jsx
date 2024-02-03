@@ -20,6 +20,7 @@ const Question = ({
     setAttemptedQuestionWithAnswers,
     attemptedQuestionWithAnswers,
     currentQuestion,
+    quizSubmitted,
 }) => {
     const [selectedAnswer, setSelectedAnswer] = useState(() => {
         let answered = attemptedQuestionWithAnswers[currentMcq?.id];
@@ -50,15 +51,35 @@ const Question = ({
             <h2 className="font-bold">
                 Q.{currentQuestion + 1} {currentMcq?.question}
             </h2>
-
             <div className=" flex flex-col py-4 space-y-3 ">
                 {Object.keys(answers)?.map((key) => {
+                    let addGreenBackgroundToCorrectAnswer = () => {
+                        return quizSubmitted && currentMcq?.answer === key
+                            ? "bg-green-500"
+                            : "";
+                    };
+
+                    let addRedBackgroundToWrongAnswer = () => {
+                        return quizSubmitted &&
+                            attemptedQuestionWithAnswers[currentMcq?.id] ===
+                                key &&
+                            attemptedQuestionWithAnswers[currentMcq?.id] !==
+                                currentMcq?.answer
+                            ? "bg-red-400"
+                            : "";
+                    };
+
                     return (
                         answers[key] && (
-                            <div key={key} className="space-x-2">
+                            <div
+                                key={key}
+                                className={`space-x-2 rounded-md px-2 ${addGreenBackgroundToCorrectAnswer()} ${addRedBackgroundToWrongAnswer()}`}
+                            >
                                 <input
                                     onClick={() => {
-                                        handleSelectAnswer(key);
+                                        if (!quizSubmitted) {
+                                            handleSelectAnswer(key);
+                                        }
                                     }}
                                     checked={
                                         selectedAnswer === key ? true : false
@@ -74,6 +95,18 @@ const Question = ({
                     );
                 })}
             </div>
+
+            {quizSubmitted && (
+                <span>
+                    Discussion :-{" "}
+                    <a
+                        className="text-blue-800 underline"
+                        href={currentMcq?.discussion_url}
+                    >
+                        Link
+                    </a>
+                </span>
+            )}
         </div>
     );
 };
