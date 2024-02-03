@@ -63,6 +63,7 @@ const QuizSection = ({ mcqs }) => {
                 setCurrentQuestion={setCurrentQuestion}
                 quizSubmitted={quizSubmitted}
                 answerObj={answerObj}
+                currentQuestion={currentQuestion}
             />
 
             <div className="max-h-64">
