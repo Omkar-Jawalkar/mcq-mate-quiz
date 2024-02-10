@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    html {
+        @apply antialiased;
+    }
+
+    a {
+        @apply cursor-pointer text-primary-600 hover:underline dark:text-primary-200;
+    }
+
+    .btn-primary {
+        @apply px-2.5 py-1.5 rounded-md text-white bg-primary-500 hover:bg-primary-600 dark:text-white;
+    }
+
+    .btn-primary-outline {
+        @apply px-2.5 py-1.5 rounded-md text-black border border-primary-500/40 hover:bg-primary-100 dark:text-gray-300 dark:hover:bg-primary-400/40;
+    }
+
+    .btn-secondary {
+        @apply px-2.5 py-1.5 rounded-md text-white bg-green-500 hover:bg-green-600;
+    }
+
+    .btn-secondary-outline {
+        @apply px-2.5 py-1.5 rounded-md text-black border border-green-500/40 hover:bg-green-100 dark:text-gray-300 dark:hover:bg-green-400/40;
+    }
+}
