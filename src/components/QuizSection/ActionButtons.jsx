@@ -7,7 +7,7 @@ const ActionButtons = ({
     attemptedQuestionLength,
 }) => {
     return (
-        <div className="flex py-6 justify-evenly">
+        <div className="flex justify-between p-4">
             <button
                 onClick={() => {
                     setCurrentQuestion((prev) => {

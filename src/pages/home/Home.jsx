@@ -19,7 +19,7 @@ const Home = () => {
     // }, [quizData]);
 
     return (
-        <div className="flex space-y-6 flex-col">
+        <div className="max-w-5xl mx-auto border rounded-sm">
             <QuizSetSection sets={sets} attempts={attempts} />
             <QuizSection
                 mcqs={mcqs}

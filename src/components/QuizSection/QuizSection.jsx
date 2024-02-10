@@ -62,7 +62,7 @@ const QuizSection = ({ mcqs }) => {
     };
 
     return (
-        <div className="flex flex-col">
+        <div className="">
             <QuestionList
                 attemptedQuestion={attemptedQuestionWithAnswers}
                 mcqs={mcqs}
@@ -73,7 +73,7 @@ const QuizSection = ({ mcqs }) => {
                 setShowResult={setShowResult}
             />
 
-            <div className="">
+            <div className="p-2">
                 {quizSubmitted && showResult ? (
                     <Result
                         mcqLength={mcqs.length}

@@ -8,7 +8,9 @@ const QuizSetSection = ({ sets, attempts }) => {
 
     return (
         <div className="w-full p-2 border-b justify-evenly">
-            <div className="mb-4 space-x-2 ">
+
+            {/* todo disable this navigation once quiz is started*/}
+            <div className="space-x-2">
                 <button
                     className={`py-2 text-xl ${tabOpened === 'test-series' ? 'border-b-2 border-primary-600' : 'border-none'} `}
                     onClick={() => setOpenedTab('test-series')}
@@ -22,7 +24,8 @@ const QuizSetSection = ({ sets, attempts }) => {
                     Random Mcqs
                 </button>
             </div>
-            <div>
+
+            <div className="px-2 py-4 border rounded-b-md border-primary-600/40">
                 {tabOpened === 'test-series' && <TestSeries sets={sets} attempts={attempts} />}
                 {tabOpened === 'random-series' && <RandomSeries />}
             </div>

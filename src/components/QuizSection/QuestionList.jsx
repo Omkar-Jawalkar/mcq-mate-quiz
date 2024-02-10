@@ -20,23 +20,30 @@ const QuestionList = ({
         return answerObj[mcqId] === true ? "bg-green-600" : "bg-red-500";
     };
 
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
 
     return (
-        <div className="w-full flex flex-col space-y-4">
-            <div className="flex py-4 max-w-screen-lg whitespace-nowrap overflow-auto px-4 space-x-2">
+        <div className="flex flex-col w-full space-y-4">
+
+            {/* Questions serial numbers */}
+            {/* This should take less screen size and user cal always scroll down for navigation*/}
+            <div className="flex flex-wrap gap-2 px-2 py-4 overflow-y-auto max-h-20"
+            // style={{ boxShadow: "inset 0px 5px 5px -5px rgba(0, 0, 0, 0.2)" }}
+            >
                 {mcqs?.map((mcq, index) => {
-                    let style = quizSubmitted
-                        ? answerObj[mcq?.id] === true
-                            ? "bg-green-600"
-                            : "bg-red-500"
-                        : currentQuestion === index
-                        ? "bg-blue-200"
-                        : Object.keys(attemptedQuestion).includes(
-                              String(mcq?.id)
-                          )
-                        ? "bg-blue-600"
-                        : "bg-gray-300";
+
+                    // for questions serial number
+                    let classNames;
+
+                    if (quizSubmitted) {
+                        classNames = answerObj[mcq?.id] ? "bg-green-600" : "bg-red-500";
+                    } else if (currentQuestion === index) {
+                        classNames = "bg-blue-200 border-b-2 border-b-blue-500";
+                    } else if (Object.keys(attemptedQuestion).includes(String(mcq?.id))) {
+                        classNames = "bg-blue-600";
+                    } else {
+                        classNames = "bg-gray-300";
+                    }
 
                     return (
                         <button
@@ -45,7 +52,7 @@ const QuestionList = ({
                                 setShowResult(false);
                             }}
                             key={index}
-                            className={` ${style} border px-3 py-1 border-black bg-gray-300 `}
+                            className={`${classNames} border px-3 py-1 bg-gray-300/30`}
                         >
                             {index + 1}
                         </button>
@@ -58,7 +65,7 @@ const QuestionList = ({
                     onClick={() => {
                         setShowResult("true");
                     }}
-                    className="underline mb-4 text-green-600"
+                    className="mb-4 text-green-600 underline"
                 >
                     Results
                 </button>
