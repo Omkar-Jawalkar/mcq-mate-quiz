@@ -47,11 +47,11 @@ const Question = ({
     };
 
     return (
-        <div className="border w-full justify-center items-center p-6">
+        <div className="items-center justify-center w-full p-2 md:p-4" style={{ minHeight: "18rem" }}>
             <h2 className="font-bold">
                 Q.{currentQuestion + 1} {currentMcq?.question}
             </h2>
-            <div className=" flex flex-col py-4 space-y-3 ">
+            <div className="flex flex-col gap-4 mt-4">
                 {Object.keys(answers)?.map((key) => {
                     let addGreenBackgroundToCorrectAnswer = () => {
                         return quizSubmitted && currentMcq?.answer === key
@@ -62,9 +62,9 @@ const Question = ({
                     let addRedBackgroundToWrongAnswer = () => {
                         return quizSubmitted &&
                             attemptedQuestionWithAnswers[currentMcq?.id] ===
-                                key &&
+                            key &&
                             attemptedQuestionWithAnswers[currentMcq?.id] !==
-                                currentMcq?.answer
+                            currentMcq?.answer
                             ? "bg-red-400"
                             : "";
                     };

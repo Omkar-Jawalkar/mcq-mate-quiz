@@ -13,17 +13,13 @@ const Result = ({ mcqLength, totalCorrectQuestions }) => {
     }, []);
 
     return (
-        <div className="w-full py-12 space-y-6 flex flex-col  justify-center items-center">
+        <div className="flex flex-col items-center justify-center w-full py-12 space-y-6">
             <h1 className="text-4xl"> Results </h1>
 
-            <h2
-                className={`${
-                    finalPercentage < 28 ? "text-red-600" : "text-green-600"
-                } text-lg`}
-            >
+            <h2 className={`${finalPercentage < 28 ? "text-red-600" : "text-green-600"} text-lg`} >
                 {finalPercentage < 28
                     ? "Oops! You Failed "
-                    : "Congrulations 🎉🎉🎉"}
+                    : "Congratulations 🎉🎉🎉"}
                 {calculatePercentage(totalCorrectQuestions, mcqLength)}%
             </h2>
 

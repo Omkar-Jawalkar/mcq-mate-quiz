@@ -1,20 +1,16 @@
 const TestSeries = ({ sets, attempts }) => {
     return (
-        <div className="space-y-2">
-            <h1 className="text-xl">Test Series</h1>
-
-            <div className="flex space-x-4">
-                {sets?.map((set) => (
-                    <button
-                        key={set}
-                        className={`border ${
-                            set in attempts ? "bg-green-600" : "bg-gray-300"
-                        } px-3 py-1 border-black bg-gray-300 `}
-                    >
-                        {set}
-                    </button>
-                ))}
-            </div>
+        <div className="flex space-x-4">
+            {/* todo show login to attempt overlay*/}
+            {sets?.map((set) => (
+                <button
+                    title={set in attempts ? "Attempted previously" : "Attempt this set"}
+                    key={set}
+                    className={`border px-3 py-1 ${set in attempts ? "bg-green-300/30" : "bg-gray-300/30"}`}
+                >
+                    {set}
+                </button>
+            ))}
         </div>
     );
 };
