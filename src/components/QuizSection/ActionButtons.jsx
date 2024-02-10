@@ -14,7 +14,7 @@ const ActionButtons = ({
                         return prev < 1 ? prev : prev - 1;
                     });
                 }}
-                className="border rounded-md px-2 py-1"
+                className="border-gray-600 btn-secondary-outline"
                 disabled={quizSubmitted}
             >
                 Previous
@@ -26,7 +26,7 @@ const ActionButtons = ({
                     onClick={() => {
                         handleSubmit();
                     }}
-                    className="border disabled:opacity-25 disabled:cursor-pointer rounded-md bg-green-600 text-white px-2 py-1"
+                    className="btn-primary disabled:opacity-25 disabled:cursor-pointer"
                     // disabled={
                     //     attemptedQuestionLength !== mcqLength || quizSubmitted
                     // }
@@ -40,7 +40,7 @@ const ActionButtons = ({
                             prev >= mcqLength - 1 ? prev : prev + 1
                         );
                     }}
-                    className="border rounded-md px-2 py-1"
+                    className="border-gray-600 btn-secondary-outline"
                     disabled={quizSubmitted}
                 >
                     Next
