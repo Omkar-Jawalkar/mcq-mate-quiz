@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import TestSeries from "./TestSeries";
-import RandomSeries from "./RandomSeries";
+import TestSeries from "./QuizSetSection/TestSeries";
+import RandomSeries from "./QuizSetSection/RandomSeries";
 import { useState } from "react";
 
-const QuizSetSection = ({ sets, attempts }) => {
+const SelectQuizToStart = ({ sets, attempts, onStartQuiz }) => {
     const [openedTab, setOpenedTab] = useState('test-series');
 
     return (
@@ -18,24 +18,25 @@ const QuizSetSection = ({ sets, attempts }) => {
                     Test Series
                 </button>
                 <button
-                    className={`py-2 text-xl ${openedTab === 'random-series' ? 'border-b-2 border-primary-600' : 'border-none'} `}
-                    onClick={() => setOpenedTab('random-series')}
+                    className={`py-2 text-xl ${openedTab === 'random-mcqs' ? 'border-b-2 border-primary-600' : 'border-none'} `}
+                    onClick={() => setOpenedTab('random-mcqs')}
                 >
                     Random Mcqs
                 </button>
             </div>
 
             <div className="px-2 py-4 border rounded-b-md border-primary-600/40">
-                {openedTab === 'test-series' && <TestSeries sets={sets} attempts={attempts} />}
-                {openedTab === 'random-series' && <RandomSeries />}
+                {openedTab === 'test-series' && <TestSeries sets={sets} attempts={attempts} onStartQuiz={onStartQuiz} />}
+                {openedTab === 'random-mcqs' && <RandomSeries onStartQuiz={onStartQuiz} />}
             </div>
         </div>
     );
 };
 
-QuizSetSection.propTypes = {
+SelectQuizToStart.propTypes = {
     sets: PropTypes.array,
     attempts: PropTypes.object,
+    onStartQuiz: PropTypes.func
 };
 
-export default QuizSetSection;
+export default SelectQuizToStart;

@@ -1,26 +1,83 @@
 import { useEffect, useState } from "react";
 import QuizSection from "../../components/QuizSection/QuizSection";
-import QuizSetSection from "../../components/QuizSetSection/QuizSetSection";
-import { QuizDataGetMock } from "../../data/QuizDataGetMock";
+import axios from "axios";
+import SelectQuizToStart from "../../components/SelectQuizToStart";
+
 const Home = () => {
+
+    // required for making first api call for getting test data
+    // this will be provided by attribute data binding 
+    const [initData, setInitData] = useState({
+        topicId: null,
+        chapterId: null,
+    });
+
     const [sets, setSets] = useState([]);
-    const [attempts, setAttempts] = useState([]);
+    const [attempts, setAttempts] = useState({});
     const [mcqs, setMcqs] = useState([]);
     const [attempted, setAttempted] = useState(false);
 
     useEffect(() => {
-        setSets(QuizDataGetMock?.data?.sets);
-        setAttempts(QuizDataGetMock?.data?.attempts);
-        setMcqs(QuizDataGetMock?.data?.mcqs);
-    }, []);
+        if (initData.topicId == null) {
+            return;
+        }
 
-    // useEffect(() => {
-    //     console.log(quizData);
-    // }, [quizData]);
+        axios.get(`http://localhost:8000/api/topics/${initData.topicId}/test-series`)
+            .then(response => {
+                console.log(response.data);
+                setSets(response.data.data.sets);
+                // setAttempts(response.data.data.attempts);
+            })
+            .catch(error => {
+            });
+
+
+    }, [initData]);
+
+    const startQuiz = (quizStartData) => {
+        console.log("Starting quiz with:", quizStartData);
+
+        // todo ask confirmation before start
+        // todo disable tab navigation bar
+
+        if (quizStartData.type == 'test-series') {
+            axios.get(`http://localhost:8000/api/topics/${initData.topicId}/test-series/${quizStartData.seriesId}/mcqs`)
+                .then(response => {
+                    console.log(response.data);
+                    setMcqs(response.data.data.mcqs);
+                    // setAttempts(response.data.data.attempts);
+                })
+                .catch(error => {
+                });
+        } else if (quizStartData.type == 'random-mcqs') {
+            axios.get(`http://localhost:8000/api/topics/${initData.topicId}/random/${quizStartData.totalMcqs}/mcqs`)
+                .then(response => {
+                    console.log(response.data);
+                    setMcqs(response.data.data.mcqs);
+                    // setAttempts(response.data.data.attempts);
+                })
+                .catch(error => {
+                });
+        }
+    };
+
+    useEffect(() => {
+        // get this from attributes
+        // !hardcoded
+        setInitData({
+            topicId: 185,
+            chapterId: null
+        });
+    }, []);
 
     return (
         <div className="max-w-5xl mx-auto border rounded-sm">
-            <QuizSetSection sets={sets} attempts={attempts} />
+
+            <SelectQuizToStart sets={sets}
+                attempts={attempts}
+                onStartQuiz={startQuiz}
+            />
+
             <QuizSection
                 mcqs={mcqs}
                 attempted={attempted}

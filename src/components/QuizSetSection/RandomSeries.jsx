@@ -1,20 +1,27 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const RandomSeries = () => {
+const RandomSeries = ({ onStartQuiz }) => {
     return (
         <div className="flex flex-col max-w-sm gap-2 mx-auto my-4">
-            {/* <h2 className="text-xl">MCQ for test chosen randomly</h2> */}
-            <button className={`btn-secondary-outline`} >
+            <button
+                onClick={() => { onStartQuiz({ type: 'random-mcqs', totalMcqs: 10 }) }}
+                className={`btn-secondary-outline`}
+            >
                 🚲 10 Questions
             </button>
-            <button className={`btn-secondary-outline`} >
+            <button onClick={() => { onStartQuiz({ type: 'random-mcqs', totalMcqs: 15 }) }} className={`btn-secondary-outline`} >
                 🏍 15 Questions
             </button>
-            <button className={`btn-secondary-outline`} >
+            <button onClick={() => { onStartQuiz({ type: 'random-mcqs', totalMcqs: 20 }) }} className={`btn-secondary-outline`} >
                 🚗 20 Questions
             </button>
         </div>
     );
+};
+
+RandomSeries.propTypes = {
+    onStartQuiz: PropTypes.func,
 };
 
 export default RandomSeries;
