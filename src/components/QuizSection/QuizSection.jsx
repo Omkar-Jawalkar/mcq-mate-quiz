@@ -69,16 +69,6 @@ const QuizSection = ({ mcqs }) => {
                 </div>
             ) : (
                 <div>
-                    <QuestionList
-                        attemptedQuestion={attemptedQuestionWithAnswers}
-                        mcqs={mcqs}
-                        setCurrentQuestion={setCurrentQuestion}
-                        quizSubmitted={quizSubmitted}
-                        answerObj={answerObj}
-                        currentQuestion={currentQuestion}
-                        setShowResult={setShowResult}
-                    />
-
                     <div className="p-2">
                         {quizSubmitted && showResult ? (
                             <Result
@@ -99,6 +89,16 @@ const QuizSection = ({ mcqs }) => {
                             />
                         )}
                     </div>
+
+                    <QuestionList
+                        attemptedQuestion={attemptedQuestionWithAnswers}
+                        mcqs={mcqs}
+                        setCurrentQuestion={setCurrentQuestion}
+                        quizSubmitted={quizSubmitted}
+                        answerObj={answerObj}
+                        currentQuestion={currentQuestion}
+                        setShowResult={setShowResult}
+                    />
 
                     <ActionButtons
                         quizSubmitted={quizSubmitted}

@@ -12,13 +12,13 @@ const SelectQuizToStart = ({ sets, attempts, onStartQuiz }) => {
             {/* todo disable this navigation once quiz is started*/}
             <div className="space-x-2">
                 <button
-                    className={`py-2 text-xl ${openedTab === 'test-series' ? 'border-b-2 border-primary-600' : 'border-none'} `}
+                    className={`py-2 text-xl ${openedTab === 'test-series' ? 'border-b-2 border-primary-600 font-semibold' : 'border-none'} `}
                     onClick={() => setOpenedTab('test-series')}
                 >
                     Test Series
                 </button>
                 <button
-                    className={`py-2 text-xl ${openedTab === 'random-mcqs' ? 'border-b-2 border-primary-600' : 'border-none'} `}
+                    className={`py-2 text-xl ${openedTab === 'random-mcqs' ? 'border-b-2 border-primary-600  font-semibold' : 'border-none'} `}
                     onClick={() => setOpenedTab('random-mcqs')}
                 >
                     Random Mcqs
