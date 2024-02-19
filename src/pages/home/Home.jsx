@@ -5,6 +5,9 @@ import SelectQuizToStart from "../../components/SelectQuizToStart";
 
 const Home = () => {
 
+    const baseUrl = 'https://mcqmate.com'
+    // const baseUrl = 'http://localhost:8000'
+
     // required for making first api call for getting test data
     // this will be provided by attribute data binding 
     const [initData, setInitData] = useState({
@@ -22,7 +25,7 @@ const Home = () => {
             return;
         }
 
-        axios.get(`http://localhost:8000/api/topics/${initData.topicId}/test-series`)
+        axios.get(`${baseUrl}/api/topics/${initData.topicId}/test-series`)
             .then(response => {
                 console.log(response.data);
                 setSets(response.data.data.sets);
@@ -41,7 +44,7 @@ const Home = () => {
         // todo disable tab navigation bar
 
         if (quizStartData.type == 'test-series') {
-            axios.get(`http://localhost:8000/api/topics/${initData.topicId}/test-series/${quizStartData.seriesId}/mcqs`)
+            axios.get(`${baseUrl}/api/topics/${initData.topicId}/test-series/${quizStartData.seriesId}/mcqs`)
                 .then(response => {
                     console.log(response.data);
                     setMcqs(response.data.data.mcqs);
@@ -50,7 +53,7 @@ const Home = () => {
                 .catch(error => {
                 });
         } else if (quizStartData.type == 'random-mcqs') {
-            axios.get(`http://localhost:8000/api/topics/${initData.topicId}/random/${quizStartData.totalMcqs}/mcqs`)
+            axios.get(`${baseUrl}/api/topics/${initData.topicId}/mcqs/random?total_mcqs=${quizStartData.totalMcqs}`)
                 .then(response => {
                     console.log(response.data);
                     setMcqs(response.data.data.mcqs);
@@ -71,13 +74,11 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="max-w-5xl mx-auto border rounded-sm">
-
+        <div className="max-w-5xl mx-auto rounded-sm">
             <SelectQuizToStart sets={sets}
                 attempts={attempts}
                 onStartQuiz={startQuiz}
             />
-
             <QuizSection
                 mcqs={mcqs}
                 attempted={attempted}
