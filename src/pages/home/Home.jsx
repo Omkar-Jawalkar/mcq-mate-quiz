@@ -19,6 +19,7 @@ const Home = () => {
     const [attempts, setAttempts] = useState({});
     const [mcqs, setMcqs] = useState([]);
     const [attempted, setAttempted] = useState(false);
+    const [isQuizStarted, setIsQuizStarted] = useState(false);
 
     useEffect(() => {
         if (initData.topicId == null) {
@@ -40,27 +41,37 @@ const Home = () => {
     const startQuiz = (quizStartData) => {
         console.log("Starting quiz with:", quizStartData);
 
-        // todo ask confirmation before start
+        // Ask for confirmation
+        const confirmed = window.confirm("Are you sure you want to start the quiz?");
+
         // todo disable tab navigation bar
 
-        if (quizStartData.type == 'test-series') {
-            axios.get(`${baseUrl}/api/topics/${initData.topicId}/test-series/${quizStartData.seriesId}/mcqs`)
-                .then(response => {
-                    console.log(response.data);
-                    setMcqs(response.data.data.mcqs);
-                    // setAttempts(response.data.data.attempts);
-                })
-                .catch(error => {
-                });
-        } else if (quizStartData.type == 'random-mcqs') {
-            axios.get(`${baseUrl}/api/topics/${initData.topicId}/mcqs/random?total_mcqs=${quizStartData.totalMcqs}`)
-                .then(response => {
-                    console.log(response.data);
-                    setMcqs(response.data.data.mcqs);
-                    // setAttempts(response.data.data.attempts);
-                })
-                .catch(error => {
-                });
+        if (confirmed) {
+            console.log("Starting quiz with:", quizStartData);
+
+            if (quizStartData.type == 'test-series') {
+                axios.get(`${baseUrl}/api/topics/${initData.topicId}/test-series/${quizStartData.seriesId}/mcqs`)
+                    .then(response => {
+                        console.log(response.data);
+                        setMcqs(response.data.data.mcqs);
+                        // setAttempts(response.data.data.attempts);
+                    })
+                    .catch(error => {
+                    });
+                setIsQuizStarted(true)
+            } else if (quizStartData.type == 'random-mcqs') {
+                axios.get(`${baseUrl}/api/topics/${initData.topicId}/mcqs/random?total_mcqs=${quizStartData.totalMcqs}`)
+                    .then(response => {
+                        console.log(response.data);
+                        setMcqs(response.data.data.mcqs);
+                        // setAttempts(response.data.data.attempts);
+                    })
+                    .catch(error => {
+                    });
+                setIsQuizStarted(true)
+            }
+        } else {
+            console.log("Quiz start canceled by user.");
         }
     };
 
@@ -75,7 +86,7 @@ const Home = () => {
 
     return (
         <div className="max-w-5xl mx-auto rounded-sm">
-            <SelectQuizToStart sets={sets}
+            <SelectQuizToStart sets={sets} isQuizStarted={isQuizStarted}
                 attempts={attempts}
                 onStartQuiz={startQuiz}
             />

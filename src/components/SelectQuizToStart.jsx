@@ -3,11 +3,15 @@ import TestSeries from "./QuizSetSection/TestSeries";
 import RandomSeries from "./QuizSetSection/RandomSeries";
 import { useState } from "react";
 
-const SelectQuizToStart = ({ sets, attempts, onStartQuiz }) => {
+const SelectQuizToStart = ({ sets, attempts, onStartQuiz, isQuizStarted }) => {
     const [openedTab, setOpenedTab] = useState('test-series');
 
     return (
-        <div className="w-full p-2 border-b justify-evenly">
+        <div className={`w-full relative p-2 border-b justify-evenly ${isQuizStarted ? 'pointer-events-none opacity-40 select-none' : ''}`}>
+
+            {/* {isQuizStarted && (
+                <p className="absolute translate-x-1/2 translate-y-1/2">Quiz started</p>
+            )} */}
 
             {/* todo disable this navigation once quiz is started*/}
             <div className="space-x-2">

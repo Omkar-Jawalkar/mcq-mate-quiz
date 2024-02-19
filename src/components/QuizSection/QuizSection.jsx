@@ -65,8 +65,10 @@ const QuizSection = ({ mcqs }) => {
         <div className="">
             {mcqs.length == 0 ? (
                 <div>
-                    Select test type first
                 </div>
+                // <div className="flex items-center justify-center text-2xl font-bold text-gray-500" style={{ height: '200px' }}>
+                //     Select test type first
+                // </div>
             ) : (
                 <div>
                     <div className="p-2">
