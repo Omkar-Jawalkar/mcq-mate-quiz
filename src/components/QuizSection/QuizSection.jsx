@@ -63,48 +63,59 @@ const QuizSection = ({ mcqs }) => {
 
     return (
         <div className="">
-            <QuestionList
-                attemptedQuestion={attemptedQuestionWithAnswers}
-                mcqs={mcqs}
-                setCurrentQuestion={setCurrentQuestion}
-                quizSubmitted={quizSubmitted}
-                answerObj={answerObj}
-                currentQuestion={currentQuestion}
-                setShowResult={setShowResult}
-            />
+            {mcqs.length == 0 ? (
+                <div>
+                </div>
+                // <div className="flex items-center justify-center text-2xl font-bold text-gray-500" style={{ height: '200px' }}>
+                //     Select test type first
+                // </div>
+            ) : (
+                <div>
+                    <div className="p-2">
+                        {quizSubmitted && showResult ? (
+                            <Result
+                                mcqLength={mcqs.length}
+                                totalCorrectQuestions={totalCorrectQuestions}
+                            />
+                        ) : (
+                            <Question
+                                quizSubmitted={quizSubmitted}
+                                setAttemptedQuestionWithAnswers={
+                                    setAttemptedQuestionWithAnswers
+                                }
+                                attemptedQuestionWithAnswers={
+                                    attemptedQuestionWithAnswers
+                                }
+                                currentMcq={mcqs[currentQuestion]}
+                                currentQuestion={currentQuestion}
+                            />
+                        )}
+                    </div>
 
-            <div className="p-2">
-                {quizSubmitted && showResult ? (
-                    <Result
-                        mcqLength={mcqs.length}
-                        totalCorrectQuestions={totalCorrectQuestions}
-                    />
-                ) : (
-                    <Question
+                    <QuestionList
+                        attemptedQuestion={attemptedQuestionWithAnswers}
+                        mcqs={mcqs}
+                        setCurrentQuestion={setCurrentQuestion}
                         quizSubmitted={quizSubmitted}
-                        setAttemptedQuestionWithAnswers={
-                            setAttemptedQuestionWithAnswers
-                        }
-                        attemptedQuestionWithAnswers={
-                            attemptedQuestionWithAnswers
-                        }
-                        currentMcq={mcqs[currentQuestion]}
+                        answerObj={answerObj}
                         currentQuestion={currentQuestion}
+                        setShowResult={setShowResult}
                     />
-                )}
-            </div>
 
-            <ActionButtons
-                quizSubmitted={quizSubmitted}
-                currentQuestion={currentQuestion}
-                setCurrentQuestion={setCurrentQuestion}
-                attemptedQuestionLength={
-                    Object.keys(attemptedQuestionWithAnswers).length
-                }
-                mcqLength={mcqs.length}
-                handleSubmit={handleSubmit}
-            />
-        </div>
+                    <ActionButtons
+                        quizSubmitted={quizSubmitted}
+                        currentQuestion={currentQuestion}
+                        setCurrentQuestion={setCurrentQuestion}
+                        attemptedQuestionLength={
+                            Object.keys(attemptedQuestionWithAnswers).length
+                        }
+                        mcqLength={mcqs.length}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
+            )
+            }
+        </div >
     );
 };
 
